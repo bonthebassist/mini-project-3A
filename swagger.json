@@ -1,0 +1,192 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "Sunrise & Sunsets Across Australia",
+        "description": "Backend and database population service powered by SunriseSunset.io" ,
+        "license": {
+            "name": "MIT",
+            "url": "https://opensource.org/licenses/MIT"
+        }
+    },
+    "host": "localhost:3000",
+    "basePath": "/",
+    "tags": [
+        {
+            "name": "Australian City Sunset and Sunrise Times API",
+            "description": "API for getting sunset and sunrise times for major cities in Australia"
+        }
+    ],
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "paths": {
+        "/populate": {
+            "post": {
+                "tags": [
+                    "Populate Database Service"
+                ],
+                "summary": "Populates Data from Third-party API for state capitals of Australia",
+                "responses": {
+                    "200": {
+                        "description": "Populates sun times Data from Third-party API for Adelaide, Syndey, Melbourne, Brisbane, Darwin, Perth, Hobart. WARNING: This call truncates the DB table and will lose any manually added cities"
+                    }
+                }
+            }
+        },
+        "/all/week": {
+            "get": {
+            "tags": [
+            "Get all Service"
+            ],
+            "summary": "Sends database rows",
+            "responses": {
+            "200": {
+            "description": "This service allows you to see all database entries for the coming week in all provided cities"
+            }
+            }
+            }
+        },
+        "/find/{cityName}/week": {
+            "get": {
+            "tags": [
+            "Get one city Service"
+            ],
+            "summary": "Provides sunset and sunrise times for the coming week",
+            "parameters": [
+            {
+            "name": "cityName",
+            "in": "path",
+            "description": "A city name"
+            }
+            ],
+            "responses": {
+            "200": {
+            "description": "This service allows you to see all database entries for the coming week in the city specified"
+            }
+            }
+            }
+        },
+        "/all/today": {
+            "get": {
+            "tags": [
+            "Get all Service"
+            ],
+            "summary": "Sends database rows for current date",
+            "responses": {
+            "200": {
+            "description": "This service allows you to see all database entries for today in all provided cities"
+            }
+            }
+            }
+        },
+        "/find/{cityName}/today": {
+            "get": {
+            "tags": [
+            "Get one city Service"
+            ],
+            "summary": "Provides sunset and sunrise times for today in specified city",
+            "parameters": [
+            {
+            "name": "cityName",
+            "in": "path",
+            "description": "A city name"
+            }
+            ],
+            "responses": {
+            "200": {
+            "description": "This service allows you to see all database entries for today in the city specified"
+            }
+            }
+            }
+        },
+        "/drop/{cityName}": {
+            "delete": {
+            "tags": [
+            "Delete a city service"
+            ],
+            "summary": "Deletes a city from the database",
+            "parameters": [
+            {
+            "name": "cityName",
+            "in": "path",
+            "description": "A city name"
+            }
+            ],
+            "responses": {
+            "200": {
+            "description": "This service allows you to delete a city from the database"
+            }
+            }
+            }
+        },
+        "/nickname/{cityName}/{newCityName}": {
+            "put": {
+            "tags": [
+            "Update a city's name service"
+            ],
+            "summary": "Updates a city's name on the database",
+            "parameters": [
+            {
+            "name": "cityName",
+            "in": "path",
+            "description": "A city name"
+            },
+            {
+                "name": "newCityName",
+                "in": "path",
+                "description": "A city nickname"
+                }
+            ],
+            "responses": {
+            "200": {
+            "description": "This service allows you to update a city's name to a nickname WARNING: make sure you remember this name because you might get lost in weird city names!"
+            }
+            }
+            }
+        },
+        "/addACity": {
+            "post": {
+            "tags": [
+            "Add a city to the database!"
+            ],
+            "summary": "Add's a city to the database and provides a response on sunset times",
+            "consumes": [
+                "application/json"
+            ],
+            "parameters": [
+            {
+                "name": "cityName",
+                "in": "body",
+                "description": "Provide a city name, latitude and longitude. If the city's name is comprised of two or mroe words, place a hyphen between to make access easier from DB",
+                "schema": {
+                    "type": "object",
+                    "properties": {
+                        "city": {
+                            "type": "string"
+                        },
+                        "lat": {
+                            "type": "number"
+                        },
+                        "lng": {
+                            "type": "number"
+                        }
+                    }
+                }
+            }
+            ],
+            "responses": {
+            "200": {
+            "description": "This service allows you to upload a city to the database. Response will confirm and send sunset data"
+            }
+            }
+            }
+        }
+}
+}
