@@ -66,13 +66,14 @@ const fetchAllData = async (req,res) => {
                     cityObj.date = date
                     cityObj.sunriseTime = results.sunrise
                     cityObj.sunsetTime = results.sunset
-                    cityObj.dawnTime = results.dawn
+                    cityObj.dawnTime = results.dawn 
                     cityObj.duskTime = results.dusk
                     return cityObj
                 })
             majorCitiesArray.push(response)
         };
     }
+    console.log(majorCitiesArray)
     return majorCitiesArray
 }
 

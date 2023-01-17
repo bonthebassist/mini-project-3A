@@ -9,13 +9,13 @@ router.post('/populate', (req, res)=>{
     sunsetController.getData(req,res)
 });
 
-//Get all Major cities for week DONE
+//Get all Major cities for week 
 router.get('/all/week', (req, res)=>{
     console.log("All major cities Route")
     sunsetController.retrieveAll(req,res)
 });
 
-//Get city by name for week DONE
+//Get city by name for week 
 router.get('/find/:cityName/week', (req, res)=>{
     console.log(`${req.params.cityName} route`)
     sunsetController.retrieveOne(req,res)

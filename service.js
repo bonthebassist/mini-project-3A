@@ -9,7 +9,7 @@ const swaggerUi = require('swagger-ui-express');
 swaggerDocument = require('./swagger.json');
 app.use('/api-docs',swaggerUi.serve,swaggerUi.setup(swaggerDocument));
 
-let PORT = 3000
+let PORT = 4000
 
 let cors = require("cors")  //stops browser error (npm install cors)
 app.use(cors())
